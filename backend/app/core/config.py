@@ -9,7 +9,7 @@ class Settings(BaseSettings):
     FRONTEND_URL: str = "http://localhost:3000"
     ALGORITHM: str = "HS256"
 
-    model_config = SettingsConfigDict(env_file=".env")
+    model_config = SettingsConfigDict(env_file=("../.env", ".env"), extra="ignore")
 
     @field_validator("SECRET_KEY")
     @classmethod
