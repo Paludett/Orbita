@@ -96,6 +96,7 @@ class TestLogin:
         with pytest.raises(HTTPException) as exc_wrong:
             await login(mock_db, "user@example.com", "WrongPass1")
 
-        # SECURITY: byte-identical messages prevent attacker from knowing which field is wrong
+        # SECURITY: byte-identical messages prevent attacker from knowing
+        # which field is wrong
         assert exc_missing.value.detail == exc_wrong.value.detail
         assert exc_missing.value.status_code == exc_wrong.value.status_code

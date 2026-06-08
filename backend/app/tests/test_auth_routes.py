@@ -17,10 +17,10 @@ async def client():
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
 
-    AsyncTestSession = async_sessionmaker(engine, expire_on_commit=False)
+    async_test_session = async_sessionmaker(engine, expire_on_commit=False)
 
     async def override_get_db():
-        async with AsyncTestSession() as session:
+        async with async_test_session() as session:
             yield session
 
     app.dependency_overrides[get_db] = override_get_db

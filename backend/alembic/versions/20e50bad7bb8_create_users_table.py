@@ -1,15 +1,15 @@
 """create users table
 
 Revision ID: 20e50bad7bb8
-Revises: 
+Revises:
 Create Date: 2026-06-08 03:05:27.507530
 
 """
 from typing import Sequence, Union
 
-from alembic import op
 import sqlalchemy as sa
 
+from alembic import op
 
 revision: str = '20e50bad7bb8'
 down_revision: Union[str, None] = None
