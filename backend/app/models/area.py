@@ -26,3 +26,11 @@ class Area(Base):
         String, ForeignKey("users.id", ondelete="CASCADE"), index=True
     )
     user: Mapped["User"] = relationship(back_populates="areas")  # noqa: F821
+    tasks: Mapped[list["Task"]] = relationship(  # noqa: F821
+        back_populates="area", cascade="all, delete-orphan", order_by="Task.order"
+    )
+    notes: Mapped[list["Note"]] = relationship(  # noqa: F821
+        back_populates="area",
+        cascade="all, delete-orphan",
+        order_by="Note.updated_at.desc()",
+    )

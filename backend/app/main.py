@@ -4,6 +4,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
 from app.routers.areas import router as areas_router
 from app.routers.auth import router as auth_router
+from app.routers.notes import router as notes_router
+from app.routers.tasks import router as tasks_router
 
 app = FastAPI(title="Orbita API", version="0.1.0")
 
@@ -17,6 +19,8 @@ app.add_middleware(
 
 app.include_router(auth_router, prefix="/auth", tags=["auth"])
 app.include_router(areas_router, prefix="/areas", tags=["areas"])
+app.include_router(tasks_router, prefix="", tags=["tasks"])
+app.include_router(notes_router, prefix="", tags=["notes"])
 
 
 @app.get("/health", tags=["health"])
