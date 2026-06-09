@@ -2,10 +2,11 @@ import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import AreaBubble from "@/components/areas/AreaBubble";
-import * as navigation from "next/navigation";
+
+const mockPush = jest.fn();
 
 jest.mock("next/navigation", () => ({
-  useRouter: () => ({ push: jest.fn() }),
+  useRouter: jest.fn(() => ({ push: mockPush })),
 }));
 
 const AREA = {
@@ -20,6 +21,8 @@ const AREA = {
 };
 
 describe("AreaBubble", () => {
+  beforeEach(() => { mockPush.mockClear(); });
+
   it("renders area name", () => {
     render(<AreaBubble area={AREA} onEdit={jest.fn()} onDelete={jest.fn()} />);
     expect(screen.getByText("Trabalho")).toBeInTheDocument();
@@ -32,11 +35,9 @@ describe("AreaBubble", () => {
   });
 
   it("navigates to /areas/[id] on bubble click", () => {
-    const push = jest.fn();
-    jest.spyOn(navigation, "useRouter").mockReturnValue({ push } as unknown as ReturnType<typeof navigation.useRouter>);
     render(<AreaBubble area={AREA} onEdit={jest.fn()} onDelete={jest.fn()} />);
     fireEvent.click(screen.getByRole("button", { name: /abrir área trabalho/i }));
-    expect(push).toHaveBeenCalledWith("/areas/area-1");
+    expect(mockPush).toHaveBeenCalledWith("/areas/area-1");
   });
 
   it("shows edit and delete buttons on hover", () => {

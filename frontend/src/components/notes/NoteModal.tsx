@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { X } from "lucide-react";
 import { useNote, useUpdateNote } from "@/hooks/useNotes";
+import RichTextEditor from "@/components/editor/RichTextEditor";
 
 interface NoteModalProps {
   areaId: string;
@@ -59,9 +60,9 @@ export default function NoteModal({ areaId, noteId, onClose }: NoteModalProps) {
     scheduleAutoSave(e.target.value, content);
   }
 
-  function handleContentChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
-    setContent(e.target.value);
-    scheduleAutoSave(title, e.target.value);
+  function handleContentChange(html: string) {
+    setContent(html);
+    scheduleAutoSave(title, html);
   }
 
   return (
@@ -103,12 +104,10 @@ export default function NoteModal({ areaId, noteId, onClose }: NoteModalProps) {
           </div>
         </div>
 
-        <textarea
-          value={content}
+        <RichTextEditor
+          content={content}
           onChange={handleContentChange}
           placeholder="Escreva aqui..."
-          aria-label="Conteúdo da nota"
-          className="flex-1 bg-transparent px-6 py-4 text-sm text-[#cbd5e1] placeholder-[#374151] outline-none resize-none min-h-[300px]"
         />
       </div>
     </div>
