@@ -57,7 +57,7 @@ export default function HomePage() {
           </span>
           <button
             onClick={logout}
-            className="text-sm text-[#4b5563] hover:text-[#9ca3af] transition-colors"
+            className="cursor-pointer text-sm text-[#4b5563] hover:text-[#9ca3af] transition-colors"
           >
             Sair
           </button>
@@ -73,7 +73,7 @@ export default function HomePage() {
           </h1>
           <button
             onClick={() => setShowCreate(true)}
-            className="flex items-center gap-1.5 px-4 py-2 bg-[#a88a3d] hover:bg-[#c4a24a] text-[#0d0f14] text-sm font-semibold rounded-full transition-colors duration-200"
+            className="cursor-pointer flex items-center gap-1.5 px-4 py-2 bg-[#a88a3d] hover:bg-[#c4a24a] text-[#0d0f14] text-sm font-semibold rounded-full transition-colors duration-200"
           >
             <span className="text-base leading-none">+</span>
             Nova área
@@ -88,7 +88,7 @@ export default function HomePage() {
             <p className="text-[#6b7280]">Falha ao carregar áreas.</p>
             <button
               onClick={() => refetch()}
-              className="px-4 py-2 bg-[#1f2330] hover:bg-[#2a3040] text-[#9ca3af] text-sm rounded-lg transition-colors"
+              className="cursor-pointer px-4 py-2 bg-[#1f2330] hover:bg-[#2a3040] text-[#9ca3af] text-sm rounded-lg transition-colors"
             >
               Tentar novamente
             </button>
@@ -142,7 +142,7 @@ function EmptyState({ onCreateClick }: { onCreateClick: () => void }) {
       </div>
       <button
         onClick={onCreateClick}
-        className="flex items-center gap-1.5 px-5 py-2.5 bg-[#a88a3d] hover:bg-[#c4a24a] text-[#0d0f14] font-semibold text-sm rounded-full transition-colors duration-200"
+        className="cursor-pointer flex items-center gap-1.5 px-5 py-2.5 bg-[#a88a3d] hover:bg-[#c4a24a] text-[#0d0f14] font-semibold text-sm rounded-full transition-colors duration-200"
       >
         <span className="text-base leading-none">+</span>
         Criar primeira área

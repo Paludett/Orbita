@@ -104,8 +104,8 @@ export default function LoginPage() {
                 }}
                 className={`flex-1 py-1.5 rounded-md text-sm font-medium transition-all duration-200 ${
                   tab === t
-                    ? "bg-[#1f2330] text-[#e8d5a3] shadow-sm"
-                    : "text-[#6b7280] hover:text-[#9ca3af]"
+                    ? "bg-[#1f2330] text-[#e8d5a3] shadow-sm cursor-pointer"
+                    : "text-[#6b7280] hover:text-[#9ca3af] cursor-pointer"
                 }`}
               >
                 {t === "login" ? "Entrar" : "Criar conta"}
@@ -156,7 +156,7 @@ export default function LoginPage() {
                 <button
                   type="button"
                   onClick={() => setShowPassword((v) => !v)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#4b5563] hover:text-[#9ca3af] transition-colors"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-[#4b5563] hover:text-[#9ca3af] transition-colors"
                   aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
                 >
                   {showPassword ? <EyeOff /> : <Eye />}
@@ -180,7 +180,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full mt-2 bg-[#a88a3d] hover:bg-[#c4a24a] disabled:opacity-60 disabled:cursor-not-allowed text-[#0d0f14] font-semibold text-sm py-2.5 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2"
+              className="w-full mt-2 bg-[#a88a3d] hover:bg-[#c4a24a] disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer text-[#0d0f14] font-semibold text-sm py-2.5 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2"
             >
               {loading && <Spinner />}
               {tab === "login" ? "Entrar" : "Criar conta"}

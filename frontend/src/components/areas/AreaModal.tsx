@@ -107,14 +107,14 @@ export default function AreaModal({ area, onClose, onSuccess }: AreaModalProps) 
           <button
             type="button"
             onClick={onClose}
-            className="flex-1 py-2.5 rounded-lg border border-[#1f2330] text-sm text-[#6b7280] hover:text-[#9ca3af] hover:border-[#2a3040] transition-colors"
+            className="cursor-pointer flex-1 py-2.5 rounded-lg border border-[#1f2330] text-sm text-[#6b7280] hover:text-[#9ca3af] hover:border-[#2a3040] transition-colors"
           >
             Cancelar
           </button>
           <button
             type="submit"
             disabled={isPending}
-            className="flex-1 py-2.5 rounded-lg bg-[#a88a3d] hover:bg-[#c4a24a] disabled:opacity-60 disabled:cursor-not-allowed text-[#0d0f14] font-semibold text-sm transition-colors flex items-center justify-center gap-2"
+            className="cursor-pointer flex-1 py-2.5 rounded-lg bg-[#a88a3d] hover:bg-[#c4a24a] disabled:opacity-60 disabled:cursor-not-allowed text-[#0d0f14] font-semibold text-sm transition-colors flex items-center justify-center gap-2"
           >
             {isPending && <Spinner />}
             {isEdit ? "Salvar" : "Criar"}

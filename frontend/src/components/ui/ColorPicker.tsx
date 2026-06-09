@@ -38,7 +38,7 @@ export default function ColorPicker({ value, onChange }: ColorPickerProps) {
             type="button"
             aria-label={c}
             onClick={() => onChange(c)}
-            className="w-7 h-7 rounded-full relative border-2 transition-transform hover:scale-110"
+            className="w-7 h-7 rounded-full relative border-2 transition-transform hover:scale-110 cursor-pointer"
             style={{
               backgroundColor: c,
               borderColor: value === c ? "#e8d5a3" : "transparent",

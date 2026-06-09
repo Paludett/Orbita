@@ -19,7 +19,7 @@ export default function IconPicker({ value, onChange }: IconPickerProps) {
             type="button"
             aria-label={name}
             onClick={() => onChange(name)}
-            className="flex flex-col items-center gap-1 p-2 rounded-lg transition-all duration-150 hover:bg-[#1f2330]"
+            className="flex flex-col items-center gap-1 p-2 rounded-lg transition-all duration-150 hover:bg-[#1f2330] cursor-pointer"
             style={{
               backgroundColor: selected ? "#1f2330" : undefined,
               outline: selected ? "1.5px solid #a88a3d" : "none",

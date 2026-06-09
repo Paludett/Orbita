@@ -39,7 +39,7 @@ export default function Modal({ title, onClose, children }: ModalProps) {
           <button
             onClick={onClose}
             aria-label="Fechar"
-            className="text-[#4b5563] hover:text-[#9ca3af] transition-colors"
+            className="cursor-pointer text-[#4b5563] hover:text-[#9ca3af] transition-colors"
           >
             <X size={18} />
           </button>

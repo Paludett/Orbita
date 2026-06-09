@@ -62,7 +62,7 @@ export default function AreaBubble({ area, onEdit, onDelete }: AreaBubbleProps) 
           <button
             onClick={handleEditClick}
             aria-label="Editar área"
-            className="absolute -top-2 -right-2 z-10 w-6 h-6 rounded-full bg-[#1f2330] border border-[#2a3040] flex items-center justify-center text-[#9ca3af] hover:text-[#e8d5a3] hover:border-[#a88a3d] transition-all duration-150"
+            className="absolute -top-2 -right-2 z-10 w-6 h-6 rounded-full bg-[#1f2330] border border-[#2a3040] flex items-center justify-center cursor-pointer text-[#9ca3af] hover:text-[#e8d5a3] hover:border-[#a88a3d] transition-all duration-150"
           >
             <Pencil size={11} />
           </button>
@@ -73,7 +73,7 @@ export default function AreaBubble({ area, onEdit, onDelete }: AreaBubbleProps) 
           <button
             onClick={handleDeleteClick}
             aria-label="Deletar área"
-            className="absolute -top-2 -left-2 z-10 w-6 h-6 rounded-full bg-[#1f2330] border border-[#2a3040] flex items-center justify-center text-[#9ca3af] hover:text-red-400 hover:border-red-500 transition-all duration-150"
+            className="absolute -top-2 -left-2 z-10 w-6 h-6 rounded-full bg-[#1f2330] border border-[#2a3040] flex items-center justify-center cursor-pointer text-[#9ca3af] hover:text-red-400 hover:border-red-500 transition-all duration-150"
           >
             <Trash2 size={11} />
           </button>
@@ -109,14 +109,14 @@ export default function AreaBubble({ area, onEdit, onDelete }: AreaBubbleProps) 
               <button
                 onClick={handleConfirmDelete}
                 aria-label="Confirmar deleção"
-                className="px-2 py-0.5 bg-red-500 hover:bg-red-400 text-white text-[10px] font-medium rounded-full transition-colors"
+                className="px-2 py-0.5 bg-red-500 hover:bg-red-400 text-white text-[10px] font-medium rounded-full transition-colors cursor-pointer"
               >
                 Sim
               </button>
               <button
                 onClick={handleCancelDelete}
                 aria-label="Cancelar deleção"
-                className="px-2 py-0.5 bg-[#1f2330] hover:bg-[#2a3040] text-[#9ca3af] text-[10px] font-medium rounded-full transition-colors"
+                className="px-2 py-0.5 bg-[#1f2330] hover:bg-[#2a3040] text-[#9ca3af] text-[10px] font-medium rounded-full transition-colors cursor-pointer"
               >
                 Não
               </button>

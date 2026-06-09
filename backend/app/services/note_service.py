@@ -1,5 +1,3 @@
-from datetime import UTC, datetime
-
 from fastapi import HTTPException, status
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -49,7 +47,6 @@ async def update_note(
     note = await get_note(db, note_id, area_id)
     for field, value in data.model_dump(exclude_unset=True).items():
         setattr(note, field, value)
-    note.updated_at = datetime.now(UTC)
     await db.commit()
     await db.refresh(note)
     return note
