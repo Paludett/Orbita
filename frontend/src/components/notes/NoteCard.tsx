@@ -2,16 +2,18 @@
 
 import { useState } from "react";
 import { Trash2 } from "lucide-react";
+import { motion } from "framer-motion";
 import { NoteSummary } from "@/services/note.service";
 import { relativeTime } from "@/lib/relativeTime";
 
 interface NoteCardProps {
   note: NoteSummary;
+  index: number;
   onClick: (noteId: string) => void;
   onDelete: (noteId: string) => void;
 }
 
-export default function NoteCard({ note, onClick, onDelete }: NoteCardProps) {
+export default function NoteCard({ note, index, onClick, onDelete }: NoteCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
 
@@ -31,7 +33,12 @@ export default function NoteCard({ note, onClick, onDelete }: NoteCardProps) {
   }
 
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, scale: 0.9 }}
+      transition={{ delay: index * 0.05, type: "spring", stiffness: 300, damping: 25 }}
+      whileHover={{ y: -4 }}
       role="button"
       aria-label={`Abrir nota ${note.title}`}
       onClick={() => !confirmDelete && onClick(note.id)}
@@ -40,12 +47,10 @@ export default function NoteCard({ note, onClick, onDelete }: NoteCardProps) {
         setIsHovered(false);
         setConfirmDelete(false);
       }}
-      className="relative bg-[#1a1e28] border border-[#1f2330] rounded-xl p-4 cursor-pointer transition-all duration-200"
+      className="relative bg-[#1a1e28] border border-[#1f2330] rounded-xl p-4 cursor-pointer"
       style={{
-        transform: isHovered ? "translateY(-2px)" : "translateY(0)",
-        boxShadow: isHovered
-          ? "0 8px 24px rgba(0,0,0,0.4)"
-          : "0 2px 8px rgba(0,0,0,0.2)",
+        boxShadow: isHovered ? "0 8px 24px rgba(0,0,0,0.4)" : "0 2px 8px rgba(0,0,0,0.2)",
+        transition: "box-shadow 0.2s ease",
       }}
       data-testid="note-card"
     >
@@ -60,7 +65,7 @@ export default function NoteCard({ note, onClick, onDelete }: NoteCardProps) {
         <button
           onClick={handleDeleteClick}
           aria-label="Deletar nota"
-          className="absolute top-3 right-3 w-6 h-6 rounded flex items-center justify-center cursor-pointer text-[#4b5563] hover:text-red-400 transition-colors"
+          className="absolute top-3 right-3 w-7 h-7 rounded flex items-center justify-center cursor-pointer text-[#4b5563] hover:text-red-400 transition-colors"
         >
           <Trash2 size={13} />
         </button>
@@ -90,6 +95,6 @@ export default function NoteCard({ note, onClick, onDelete }: NoteCardProps) {
           </div>
         </div>
       )}
-    </div>
+    </motion.div>
   );
 }

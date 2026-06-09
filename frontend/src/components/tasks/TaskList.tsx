@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown, ChevronRight } from "lucide-react";
+import { ChevronDown, ChevronRight, CheckCircle2 } from "lucide-react";
+import { AnimatePresence } from "framer-motion";
 import { Task } from "@/services/task.service";
 import TaskItem from "./TaskItem";
 import TaskForm from "./TaskForm";
+import EmptyState from "@/components/ui/EmptyState";
 
 interface TaskListProps {
   tasks: Task[];
@@ -35,21 +37,25 @@ export default function TaskList({
   return (
     <div className="flex flex-col">
       {pending.length === 0 && (
-        <p className="text-sm text-[#374151] px-2 py-4 text-center">
-          Nenhuma tarefa pendente
-        </p>
+        <EmptyState
+          icon={CheckCircle2}
+          title="Nenhuma tarefa ainda"
+          description="Adicione tarefas abaixo."
+        />
       )}
 
-      {pending.map((task) => (
-        <TaskItem
-          key={task.id}
-          task={task}
-          areaColor={areaColor}
-          onToggle={onToggle}
-          onUpdate={onUpdate}
-          onDelete={onDelete}
-        />
-      ))}
+      <AnimatePresence initial={false}>
+        {pending.map((task) => (
+          <TaskItem
+            key={task.id}
+            task={task}
+            areaColor={areaColor}
+            onToggle={onToggle}
+            onUpdate={onUpdate}
+            onDelete={onDelete}
+          />
+        ))}
+      </AnimatePresence>
 
       <TaskForm onSubmit={onAdd} />
 
@@ -59,6 +65,7 @@ export default function TaskList({
             onClick={() => setCompletedOpen((o) => !o)}
             className="cursor-pointer flex items-center gap-1.5 text-xs text-[#4b5563] hover:text-[#9ca3af] transition-colors px-2 py-1"
             aria-expanded={completedOpen}
+            aria-label={`${completedOpen ? "Ocultar" : "Mostrar"} tarefas concluídas`}
           >
             {completedOpen ? (
               <ChevronDown size={12} />
@@ -68,20 +75,24 @@ export default function TaskList({
             Concluídas ({completed.length})
           </button>
 
-          {completedOpen && (
-            <div className="mt-1">
-              {completed.map((task) => (
-                <TaskItem
-                  key={task.id}
-                  task={task}
-                  areaColor={areaColor}
-                  onToggle={onToggle}
-                  onUpdate={onUpdate}
-                  onDelete={onDelete}
-                />
-              ))}
-            </div>
-          )}
+          <AnimatePresence>
+            {completedOpen && (
+              <div className="mt-1">
+                <AnimatePresence initial={false}>
+                  {completed.map((task) => (
+                    <TaskItem
+                      key={task.id}
+                      task={task}
+                      areaColor={areaColor}
+                      onToggle={onToggle}
+                      onUpdate={onUpdate}
+                      onDelete={onDelete}
+                    />
+                  ))}
+                </AnimatePresence>
+              </div>
+            )}
+          </AnimatePresence>
         </div>
       )}
     </div>

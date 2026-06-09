@@ -12,7 +12,7 @@ const NOTE = {
 describe("NoteCard", () => {
   it("renders title and relative date", () => {
     render(
-      <NoteCard note={NOTE} onClick={jest.fn()} onDelete={jest.fn()} />
+      <NoteCard note={NOTE} index={0} onClick={jest.fn()} onDelete={jest.fn()} />
     );
     expect(screen.getByText("Minha nota")).toBeInTheDocument();
     // Intl.RelativeTimeFormat pt-BR for ~2 days ago → "anteontem" or "há N dias"
@@ -23,7 +23,7 @@ describe("NoteCard", () => {
   it("calls onClick with noteId on click", () => {
     const onClick = jest.fn();
     render(
-      <NoteCard note={NOTE} onClick={onClick} onDelete={jest.fn()} />
+      <NoteCard note={NOTE} index={0} onClick={onClick} onDelete={jest.fn()} />
     );
     fireEvent.click(screen.getByRole("button", { name: /abrir nota minha nota/i }));
     expect(onClick).toHaveBeenCalledWith("note-1");
@@ -31,14 +31,14 @@ describe("NoteCard", () => {
 
   it("delete button not visible without hover", () => {
     render(
-      <NoteCard note={NOTE} onClick={jest.fn()} onDelete={jest.fn()} />
+      <NoteCard note={NOTE} index={0} onClick={jest.fn()} onDelete={jest.fn()} />
     );
     expect(screen.queryByLabelText("Deletar nota")).not.toBeInTheDocument();
   });
 
   it("delete button visible on hover", () => {
     render(
-      <NoteCard note={NOTE} onClick={jest.fn()} onDelete={jest.fn()} />
+      <NoteCard note={NOTE} index={0} onClick={jest.fn()} onDelete={jest.fn()} />
     );
     fireEvent.mouseEnter(screen.getByTestId("note-card"));
     expect(screen.getByLabelText("Deletar nota")).toBeInTheDocument();
@@ -47,7 +47,7 @@ describe("NoteCard", () => {
   it("calls onDelete after confirm", () => {
     const onDelete = jest.fn();
     render(
-      <NoteCard note={NOTE} onClick={jest.fn()} onDelete={onDelete} />
+      <NoteCard note={NOTE} index={0} onClick={jest.fn()} onDelete={onDelete} />
     );
     fireEvent.mouseEnter(screen.getByTestId("note-card"));
     fireEvent.click(screen.getByLabelText("Deletar nota"));

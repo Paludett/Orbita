@@ -40,11 +40,44 @@ cp ../.env.example .env   # adjust DATABASE_URL to point to your local Postgres
 uvicorn app.main:app --reload
 ```
 
+## Running the frontend locally (without Docker)
+
+```bash
+cd frontend
+npm install
+npm run dev   # http://localhost:3000
+```
+
+## Environment variables
+
+Copy `.env.example` to `.env` and fill in:
+
+| Variable | Example | Notes |
+|---|---|---|
+| `DATABASE_URL` | `postgresql+asyncpg://orbita:orbita@localhost:5433/orbita` | Async postgres URL |
+| `SECRET_KEY` | `change-me-min-32-chars-xxxxxxxxxxxxxxxx` | Min 32 chars, used for JWT signing |
+| `POSTGRES_USER` | `orbita` | Docker Compose DB user |
+| `POSTGRES_PASSWORD` | `orbita` | Docker Compose DB password |
+| `POSTGRES_DB` | `orbita` | Docker Compose DB name |
+| `ACCESS_TOKEN_EXPIRE_MINUTES` | `15` | JWT expiry (default 15 min) |
+| `FRONTEND_URL` | `http://localhost:3000` | CORS origin |
+
 ## Running tests
+
+### Backend
 
 ```bash
 cd backend
-poetry run pytest --cov=app
+poetry run pytest --cov=app          # all tests with coverage
+poetry run pytest -k "test_name"     # single test by name
+```
+
+### Frontend
+
+```bash
+cd frontend
+npm test                  # all tests
+npm run type-check        # TypeScript check
 ```
 
 ## Running database migrations

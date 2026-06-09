@@ -6,6 +6,7 @@ const config: Config = {
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/src/$1",
     "\\.css$": "<rootDir>/__mocks__/styleMock.js",
+    "^framer-motion$": "<rootDir>/__mocks__/framer-motion.js",
   },
   setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
   testMatch: ["**/tests/**/*.test.ts", "**/tests/**/*.test.tsx"],

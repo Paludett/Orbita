@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
 import { isAuthenticated } from "@/lib/auth";
 
 export default function ProtectedLayout({
@@ -17,5 +18,13 @@ export default function ProtectedLayout({
     }
   }, [router]);
 
-  return <>{children}</>;
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.2, ease: "easeOut" }}
+    >
+      {children}
+    </motion.div>
+  );
 }

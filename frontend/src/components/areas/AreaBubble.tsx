@@ -3,16 +3,18 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Pencil, Trash2 } from "lucide-react";
+import { motion } from "framer-motion";
 import { ICON_MAP } from "@/lib/icons";
 import { Area } from "@/services/area.service";
 
 interface AreaBubbleProps {
   area: Area;
+  index: number;
   onEdit: (area: Area) => void;
   onDelete: (id: string) => void;
 }
 
-export default function AreaBubble({ area, onEdit, onDelete }: AreaBubbleProps) {
+export default function AreaBubble({ area, index, onEdit, onDelete }: AreaBubbleProps) {
   const router = useRouter();
   const [isHovered, setIsHovered] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
@@ -47,8 +49,14 @@ export default function AreaBubble({ area, onEdit, onDelete }: AreaBubbleProps) 
   }
 
   return (
-    <div
-      className="flex flex-col items-center gap-2 cursor-pointer select-none area-bubble-enter"
+    <motion.div
+      initial={{ opacity: 0, scale: 0.5 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.3 }}
+      transition={{ delay: index * 0.05, type: "spring", stiffness: 300, damping: 20 }}
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      className="flex flex-col items-center gap-2 cursor-pointer select-none"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => {
         setIsHovered(false);
@@ -57,46 +65,42 @@ export default function AreaBubble({ area, onEdit, onDelete }: AreaBubbleProps) 
       data-testid="area-bubble"
     >
       <div className="relative">
-        {/* Edit button */}
         {isHovered && !confirmDelete && (
           <button
             onClick={handleEditClick}
             aria-label="Editar área"
-            className="absolute -top-2 -right-2 z-10 w-6 h-6 rounded-full bg-[#1f2330] border border-[#2a3040] flex items-center justify-center cursor-pointer text-[#9ca3af] hover:text-[#e8d5a3] hover:border-[#a88a3d] transition-all duration-150"
+            className="absolute -top-2 -right-2 z-10 w-7 h-7 rounded-full bg-[#1f2330] border border-[#2a3040] flex items-center justify-center cursor-pointer text-[#9ca3af] hover:text-[#e8d5a3] hover:border-[#a88a3d] transition-all duration-150"
           >
             <Pencil size={11} />
           </button>
         )}
 
-        {/* Delete button */}
         {isHovered && !confirmDelete && (
           <button
             onClick={handleDeleteClick}
             aria-label="Deletar área"
-            className="absolute -top-2 -left-2 z-10 w-6 h-6 rounded-full bg-[#1f2330] border border-[#2a3040] flex items-center justify-center cursor-pointer text-[#9ca3af] hover:text-red-400 hover:border-red-500 transition-all duration-150"
+            className="absolute -top-2 -left-2 z-10 w-7 h-7 rounded-full bg-[#1f2330] border border-[#2a3040] flex items-center justify-center cursor-pointer text-[#9ca3af] hover:text-red-400 hover:border-red-500 transition-all duration-150"
           >
             <Trash2 size={11} />
           </button>
         )}
 
-        {/* Bubble */}
         <div
           onClick={handleBodyClick}
           role="button"
           aria-label={`Abrir área ${area.name}`}
-          className="w-24 h-24 sm:w-28 sm:h-28 rounded-full flex items-center justify-center transition-all duration-250"
+          className="w-24 h-24 sm:w-28 sm:h-28 rounded-full flex items-center justify-center"
           style={{
             backgroundColor: area.color,
             boxShadow: isHovered
               ? `0 8px 32px ${area.color}60, 0 0 0 2px ${area.color}30`
               : `0 4px 16px ${area.color}40`,
-            transform: isHovered ? "scale(1.07)" : "scale(1)",
+            transition: "box-shadow 0.25s ease",
           }}
         >
           <Icon size={36} className="text-white drop-shadow-sm" />
         </div>
 
-        {/* Inline delete confirm */}
         {confirmDelete && (
           <div
             onClick={(e) => e.stopPropagation()}
@@ -128,6 +132,6 @@ export default function AreaBubble({ area, onEdit, onDelete }: AreaBubbleProps) 
       <span className="text-xs text-[#9ca3af] font-medium text-center max-w-28 truncate">
         {area.name}
       </span>
-    </div>
+    </motion.div>
   );
 }

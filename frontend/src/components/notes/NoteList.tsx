@@ -1,7 +1,10 @@
 "use client";
 
+import { FileText } from "lucide-react";
+import { AnimatePresence } from "framer-motion";
 import { NoteSummary } from "@/services/note.service";
 import NoteCard from "./NoteCard";
+import EmptyState from "@/components/ui/EmptyState";
 
 interface NoteListProps {
   notes: NoteSummary[];
@@ -12,25 +15,27 @@ interface NoteListProps {
 export default function NoteList({ notes, onOpen, onDelete }: NoteListProps) {
   if (notes.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center py-16 text-center">
-        <p className="text-[#374151] text-sm">Nenhuma nota ainda.</p>
-        <p className="text-[#2a3040] text-xs mt-1">
-          Clique em &quot;+ Nova nota&quot; para começar.
-        </p>
-      </div>
+      <EmptyState
+        icon={FileText}
+        title="Nenhuma nota ainda"
+        description='Clique em "+ Nova nota" para começar.'
+      />
     );
   }
 
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-      {notes.map((note) => (
-        <NoteCard
-          key={note.id}
-          note={note}
-          onClick={onOpen}
-          onDelete={onDelete}
-        />
-      ))}
+      <AnimatePresence>
+        {notes.map((note, index) => (
+          <NoteCard
+            key={note.id}
+            note={note}
+            index={index}
+            onClick={onOpen}
+            onDelete={onDelete}
+          />
+        ))}
+      </AnimatePresence>
     </div>
   );
 }
